@@ -1,1 +1,109 @@
-javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+<h3>Bookmarklet gnerator for Mobile ScriptAutoRunner</h3>
+ScriptAutoRunner is great Chrome-Extension, bring us CORS free img operation ...<br>
+This is a Mobile version of SAR.  &nbsp;&nbsp;&nbsp;<a href='https://github.com/take4123/mSAR/wiki'>HowTo</a> <br><br> 
+<input id="password1" placeholder="password" class="passphrase" type="text" size="20">&nbsp;
+<a>if any script was encrypted by AES.</a><br>
+<textarea id="urls" class="text-string" rows="8" cols="80">/* list of script url,  as following...  with no quotes, no comma.*/</textarea><br>
+<input id="createBM" type="button" value="↓ create Bookmarklet" onclick="onclick_BM_button()">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="removeSCR" type="button" value="create RemoveScript Bookmarklet" onclick="onclick_removeSCR_button()"><br>
+<textarea id="bookmarklet" class="text-string" rows="9" cols="80">
+1.Copy created
+2.Make bookmarklet
+3.Run on the target site
+    first verify on PC, after that enjoy on your Mobile.
+	
+Attension.
+You have to ERASE scripts copy on your localStorage, in case of  script's update.
+because, after 2nd time the copy is used to reduce communication cost.
+</textarea>
+
+<hr color='#f0f0f0'>AES Encrypt/Decrypt&nbsp;&nbsp;(for secret data)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Thanks <a href="https://hibara.org/blog/2016/02/15/cryptojs/">Mr. Hibara</a><br>
+<textarea id="plain-script" class="text-string" rows="8" cols="80">Paste your-script </textarea><br>
+<input id="password2" placeholder="password" class="passphrase" type="text" size="20">&nbsp;
+<input id="encrypt" type="button" value="↓ Encrypt" onclick="onclick_encrypt_button()"> &nbsp;
+<input id="decrypt" type="button" value="↑ Decrypt" onclick="onclick_decrypt_button()"><br>
+<textarea id="encypted-script" class="text-string" rows="8" cols="80">encrypted-script</textarea>
+<hr>
+
+
+<script type="text/javascript">
+	$("#password1").on('change', function(e) {
+		$("#password2").val( $("#password1").val() );
+	});
+	$("#password2").on('change', function(e) {
+		$("#password1").val( $("#password2").val() );
+	});
+
+	var d=document;
+	//========
+	// BookMark作成ボタン
+	//========
+	function onclick_BM_button(){
+		var scrpt="d=document;if(!d.getElementById('mSAR.js')){s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);}else mSAR();";
+		var pwd  = d.getElementById('password1').value;
+		var ar   = d.getElementById('urls').value.trim().replace(/\r/g,'').split('\n');
+		if( ar[0].slice(0,2)=='/*' ) ar.shift();
+		var URLs;
+		if( ar.length==0) URLs ='';
+		else 	URLs = "'" + ar.join("','") + "'";
+		var buff  = "javascript:bootpwd='$1';URLs=[$2];".replace('$1',pwd).replace('$2',URLs);
+		d.getElementById('bookmarklet').value = buff + scrpt;
+	}
+	//========
+	// localScript削除ボタン
+	//========
+	function onclick_removeSCR_button(){
+		var buff  = "javascript:var scr=document.getElementsByTagName('script');for(var i=scr.length-1;i>=0;i--){if(scr[i].id!=''){scr[i].remove();localStorage.removeItem(scr[i]);}}";
+		d.getElementById('bookmarklet').value = buff ;
+	}
+	
+
+	//========
+	// 暗号化ボタン
+	//========
+	function onclick_encrypt_button() {
+		var secret_passphrase = CryptoJS.enc.Utf8.parse(d.getElementById('password2').value);
+		var salt = CryptoJS.lib.WordArray.random(128 / 8);
+		var key128Bits500Iterations =
+			CryptoJS.PBKDF2(secret_passphrase, salt, {keySize: 128 / 8, iterations: 500 });
+		var iv = CryptoJS.lib.WordArray.random(128 / 8);
+		var options = {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7};
+		var message_text = CryptoJS.enc.Utf8.parse(d.getElementById('plain-script').value);
+		var encrypted = CryptoJS.AES.encrypt(message_text, key128Bits500Iterations, options);
+		var binary_data = CryptoJS.enc.Hex.stringify(salt);
+		binary_data += (',' + CryptoJS.enc.Hex.stringify(iv));
+		binary_data += (',' + encrypted);
+		d.getElementById('encypted-script').value = binary_data;
+	};
+
+	//========
+	// 復号化ボタン
+	//========
+	function onclick_decrypt_button() {
+		var array_rawData = d.getElementById('encypted-script').value.split(',');
+		var salt = CryptoJS.enc.Hex.parse(array_rawData[0]); 
+		var iv = CryptoJS.enc.Hex.parse(array_rawData[1]);
+		var encrypted_data = CryptoJS.enc.Base64.parse(array_rawData[2]); 
+		var secret_passphrase = CryptoJS.enc.Utf8.parse(d.getElementById('password2').value);
+		var key128Bits500Iterations =
+			CryptoJS.PBKDF2(secret_passphrase, salt, {keySize: 128 / 8, iterations: 500 });
+		var options = {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7};
+		var decrypted = CryptoJS.AES.decrypt({"ciphertext":encrypted_data}, key128Bits500Iterations, options);
+		d.getElementById('plain-script').value = decrypted.toString(CryptoJS.enc.Utf8);
+	};
+</script>
+
+</body>
+</html>
