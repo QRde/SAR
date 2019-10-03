@@ -166,11 +166,13 @@ function WakeupGenie() {
         e.preventDefault();
         var files = e.dataTransfer.files;
         for (var i = 0; i < files.length; i++) {
-            var f = files[i];
-            fname = f.name;
+            var file = files[i];
+            fname = file.name;
             if (fname.slice(-3) == '.js') {
                 var reader = new FileReader();
+		reader.fname = fname;
                 reader.onload = function (theFile) {
+		   var fname = this.fname;
                    var text = reader.result.trim();
 		   //即時実行アロー関数形式なら (()=>{ /*関数本体*/ })();
 		   var p_ = text.indexOf("(()=>{");
@@ -182,7 +184,7 @@ function WakeupGenie() {
                    else
                        setLocalStorage(fname, text);
                 }
-                reader.readAsText(files[i]);
+                reader.readAsText(file);
             }
         }
     });
