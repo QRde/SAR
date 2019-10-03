@@ -320,7 +320,7 @@ function toggleQR() {
     var el = document.getElementById('app');
     if (!el)
         InstascanPlus();
-    if (el.style.display == 'none') {
+    else if (el.style.display == 'none') {
         el.setAttribute('style', 'display:blocked');
         app.scanner.start();
     } else {
