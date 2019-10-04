@@ -22,8 +22,8 @@ else if (URLs.length == 0)
     InstascanPlus();
 
 var bootLoader;
-Genie();
-function Genie() {
+genie();
+function genie() {
     /*暗号化データ解凍用libraryを最初にimport*/
     if (typeof(URLs) == 'undefined')
         URLs = [];
@@ -43,7 +43,7 @@ function Genie() {
     bootLoader = bootLoaderFunc();
     bootLoader.next();
 }
-
+var Genie=genie;
 function  * bootLoaderFunc() {
     while (URLs.length > 0) {
         var url = URLs.shift();
