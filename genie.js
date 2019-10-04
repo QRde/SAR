@@ -220,7 +220,7 @@ function InstascanPlus() {
     var e = document.createElement('style');
     e.setAttribute('id', 'style');
     var buf = '';
-    buf = buf + 'body, html {   padding: 0;   margin: 0;   font-family: "Helvetica Neue", "Calibri", Arial, sans-serif;   height: 100%; }';
+    buf = buf + 'body, html {   padding: 0;   margin: 0;   font-family: "Helvetica Neue", "Calibri", Arial, sans-serif;   height: 480; }';
     buf = buf + '#app {   background: #263238;   display: flex;   align-items: stretch;   justify-content: stretch;   height: 100%; }';
     buf = buf + '.sidebar {   background: #eceff1;   min-width: 250px;   display: flex;   flex-direction: column;   justify-content: flex-start;   overflow: auto; }';
     buf = buf + '.sidebar h2 {   font-weight: normal;   font-size: 1.0rem;   background: #607d8b;   color: #fff;   padding: 10px;   margin: 0; }';
