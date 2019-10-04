@@ -43,7 +43,7 @@ function genie() {
     bootLoader = bootLoaderFunc();
     bootLoader.next();
 }
-function Genie()={genie()};
+function Genie(){genie()};
 function  * bootLoaderFunc() {
     while (URLs.length > 0) {
         var url = URLs.shift();
