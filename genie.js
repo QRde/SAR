@@ -182,10 +182,14 @@ function WakeupGenie() {
                     var q_ = text.indexOf("})()");
                     if (p_ == 0 && q_ > 0) {
 			text = text.slice(p_ + 6, q_);
-			lastCmd = text;
+                        eval(text);
+                    } else if (text.indexOf('javascript:') == 0){
+			text = text.slice(p_ + 6, q_);
                         eval(text);
                     } else if (text.indexOf('javascript:') == 0){
 			lastCmd = text.slice(11);
+                        eval(text);
+		    } else
                         eval(text);
 		    } else
                         setLocalStorage(fname, text);
@@ -196,14 +200,26 @@ function WakeupGenie() {
     });
     genie.addEventListener('blur', function (e) {
 	var text = genie.value;
+	var p_ = text.indexOf("(()=>{");
+	var q_ = text.indexOf("})()");
     	if (text.slice(-1) == '=') {
 		alert(eval(text.slice(0,-1)));
 		genie.value = '';
 	} else if(text.indexOf('help')==0) {
 		initShortCut(); 
 		genie.value = '';
+	} else if(p_ == 0 && q_ > 0) {
+	   text = text.slice(p_ + 6, q_);
+	   eval(text);
+	} else if (text.indexOf('javascript:') == 0){
+	   text = text.slice(p_ + 6, q_);
+	   lastCmd = text;
+	   eval(text);
+	} else if (text.indexOf('javascript:') == 0){
+	   lastCmd = text.slice(11);
+	   eval(text);
 	} else
-	        eval(text);
+	   eval(text);
     });
 }
 //-------------
