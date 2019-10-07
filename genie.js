@@ -333,6 +333,10 @@ function toggleQR() {
         app.scanner.stop();
     }
 }
-function QR() {
-	Mousetrap.bind('q+r', function(e) { toggleQR();});
+Mousetrap.bind('h+e+l+p', function(e) { help();});
+Mousetrap.bind('q+r', function(e) { toggleQR();});
+function help(){
+   alert(
+   '"q+r": QR reader ON/OFF\n' +
+   '';
 }
