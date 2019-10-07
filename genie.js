@@ -328,3 +328,6 @@ function toggleQR() {
         app.scanner.stop();
     }
 }
+function QR() {
+	toggleQR();
+}
