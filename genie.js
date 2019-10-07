@@ -212,7 +212,6 @@ function WakeupGenie() {
             lastCmd = text;
             eval(text);
         } else {
-            lastCmd = text;
             eval(text);
 		}
     });
