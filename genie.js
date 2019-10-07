@@ -195,6 +195,9 @@ function WakeupGenie() {
     	if (text.slice(-1) == '=') {
 		alert(eval(text.slice(0,-1)));
 		genie.value = '';
+	} else if(text.indexOf('help')==0) {
+		initShortCut(); 
+		genie.value = '';
 	} else
 	        eval(text);
     });
@@ -335,7 +338,6 @@ function toggleQR() {
     }
 }
 //=====short cuts====
-function help(){initShortCut(); delete help;}
 function initShortCut(){
 	addShortCut('h+e+l+p', 'showShortCut()');
 	addShortCut('q+r', 'toggleQR()');
