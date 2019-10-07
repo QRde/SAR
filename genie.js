@@ -191,9 +191,10 @@ function WakeupGenie() {
     });
     genie.addEventListener('blur', function (e) {
 	var text = genie.value;
-    	if (text.slice(-1) == '=')
+    	if (text.slice(-1) == '=') {
 		alert(eval(text.slice(0,-1)));
-	else
+		genie.value = '';
+	} else
 	        eval(text);
     });
 }
