@@ -1,7 +1,7 @@
 /*---genie.js-------
 
 javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
- 
+
 目標のサイトを開き上記のBookmarkletを実行すると
 機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
 機能2: jsファイルのDnDで、javascriptが実行されます。
@@ -28,7 +28,7 @@ function Genie() {
     if (typeof(URLs) == 'undefined')
         URLs = [];
     if (!document.getElementById('aes.js')) {
-        URLs = ['https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js', 'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js','https://qrde.github.io/SAR/mousetrap.js'].concat(URLs);
+        URLs = ['https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js', 'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js', 'https://qrde.github.io/SAR/mousetrap.js'].concat(URLs);
     }
     //保存されたPWDがあれば、それを優先させる
     var lsPW = localStorage.getItem('bootpwd');
@@ -82,7 +82,8 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
-    if(typeof(Mousetrap)!='undefined') setTimeout(initShortCut(),1000);
+    if (typeof(Mousetrap) != 'undefined')
+        setTimeout(initShortCut(), 1000);
     bootLoader.next();
 };
 function appendScript(c_name, source) {
@@ -142,7 +143,7 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
-var lastCmd='';
+var lastCmd = '';
 function WakeupGenie() {
     var d = document;
     var el;
@@ -181,17 +182,11 @@ function WakeupGenie() {
                     var p_ = text.indexOf("(()=>{");
                     var q_ = text.indexOf("})()");
                     if (p_ == 0 && q_ > 0) {
-			text = text.slice(p_ + 6, q_);
+                        text = text.slice(p_ + 6, q_);
                         eval(text);
-                    } else if (text.indexOf('javascript:') == 0){
-			text = text.slice(p_ + 6, q_);
+                    } else if (text.indexOf('javascript:') == 0) {
                         eval(text);
-                    } else if (text.indexOf('javascript:') == 0){
-			lastCmd = text.slice(11);
-                        eval(text);
-		    } else
-                        eval(text);
-		    } else
+                    } else
                         setLocalStorage(fname, text);
                 }
                 reader.readAsText(file);
@@ -199,49 +194,50 @@ function WakeupGenie() {
         }
     });
     genie.addEventListener('blur', function (e) {
-	var text = genie.value;
-	var p_ = text.indexOf("(()=>{");
-	var q_ = text.indexOf("})()");
-    	if (text.slice(-1) == '=') {
-		alert(eval(text.slice(0,-1)));
-		genie.value = '';
-	} else if(text.indexOf('help')==0) {
-		initShortCut(); 
-		genie.value = '';
-	} else if(p_ == 0 && q_ > 0) {
-	   text = text.slice(p_ + 6, q_);
-	   eval(text);
-	} else if (text.indexOf('javascript:') == 0){
-	   text = text.slice(p_ + 6, q_);
-	   lastCmd = text;
-	   eval(text);
-	} else if (text.indexOf('javascript:') == 0){
-	   lastCmd = text.slice(11);
-	   eval(text);
-	} else
-	   eval(text);
+        var text = genie.value;
+        var p_ = text.indexOf("(()=>{");
+        var q_ = text.indexOf("})()");
+        if (text.slice(-1) == '=') {
+            alert(eval(text.slice(0, -1)));
+            genie.value = '';
+        } else if (text.indexOf('help') == 0) {
+            initShortCut();
+            genie.value = '';
+        } else if (p_ == 0 && q_ > 0) {
+            text = text.slice(p_ + 6, q_);
+            lastCmd = text;
+            eval(text);
+        } else if (text.indexOf('javascript:') == 0) {
+            text = text.slice(11);
+            lastCmd = text;
+            eval(text);
+        } else {
+            lastCmd = text;
+            eval(text);
+		}
     });
 }
 //-------------
 // InstascanPlus
 //-------------
 function getUserType() {
-	var ua = [
-		"iPod",
-		"iPad",
-		"iPhone",
-		"Android"
-	]
-	
-	for (var i = 0; i < ua.length; i++) {
-		if (navigator.userAgent.indexOf(ua[i]) > 0) {
-			return i;
-		}
-	}
-	return i;
+    var ua = [
+        "iPod",
+        "iPad",
+        "iPhone",
+        "Android"
+    ]
+
+    for (var i = 0; i < ua.length; i++) {
+        if (navigator.userAgent.indexOf(ua[i]) > 0) {
+            return i;
+        }
+    }
+    return i;
 }
 function InstascanPlus() {
-	if(getUserType()<=2)	return;	// iOS ha no video service
+    if (getUserType() <= 2)
+        return; // iOS ha no video service
     var d = document;
     var bdr = d.createElement('div');
     bdr.id = '---border---';
@@ -358,18 +354,18 @@ function toggleQR() {
     }
 }
 //=====short cuts====
-function initShortCut(){
-	addShortCut('h+e+l+p', 'showShortCut()');
-	addShortCut('q+r', 'toggleQR()');
+function initShortCut() {
+    addShortCut('h+e+l+p', 'showShortCut()');
+    addShortCut('q+r', 'toggleQR()');
 }
 var Short_Cut = {};
-function addShortCut(keys,func){
-    eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys',keys).replace('fnc',func));
+function addShortCut(keys, func) {
+    eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
     Short_Cut[keys] = func;
 }
-function showShortCut(){
-   var buf = "";
-   for(var key in Short_Cut) 
-      buf += "'" +key + "' :   '" + Short_Cut[key] + "'\n";
-   alert(buf);
+function showShortCut() {
+    var buf = "";
+    for (var key in Short_Cut)
+        buf += "'" + key + "' :   '" + Short_Cut[key] + "'\n";
+    alert(buf);
 }
