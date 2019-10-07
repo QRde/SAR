@@ -142,6 +142,7 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
+var history='';
 function WakeupGenie() {
     var d = document;
     var el;
@@ -180,8 +181,11 @@ function WakeupGenie() {
                     var p_ = text.indexOf("(()=>{");
                     var q_ = text.indexOf("})()");
                     if (p_ == 0 && q_ > 0) {
-                        eval(text.slice(p_ + 6, q_));
+			text = text.slice(p_ + 6, q_);
+			history = text;
+                        eval(text);
                     } else if (text.indexOf('javascript:') == 0)
+			history = text.slice(11);
                         eval(text);
                     else
                         setLocalStorage(fname, text);
