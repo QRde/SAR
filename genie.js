@@ -28,7 +28,7 @@ function Genie() {
     if (typeof(URLs) == 'undefined')
         URLs = [];
     if (!document.getElementById('aes.js')) {
-        URLs = ['https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js', 'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js','https://qrde.github.io/SAR/mousetrap.js'].concat(URLs);
+        URLs = ['https://qrde.github.io/SAR/mousetrap.js','https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js', 'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js'].concat(URLs);
     }
     //保存されたPWDがあれば、それを優先させる
     var lsPW = localStorage.getItem('bootpwd');
