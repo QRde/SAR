@@ -200,9 +200,6 @@ function WakeupGenie() {
         if (text.slice(-1) == '=') {
             alert(eval(text.slice(0, -1)));
             genie.value = '';
-        } else if (text.indexOf('help') == 0) {
-            initShortCut();
-            genie.value = '';
         } else if (p_ == 0 && q_ > 0) {
             text = text.slice(p_ + 6, q_);
             lastCmd = text;
@@ -351,6 +348,8 @@ function toggleQR() {
         el.setAttribute('style', 'display:none');
         app.scanner.stop();
     }
+    if(Object.keys(Short_Cut).length==0)
+        initShortCut();
 }
 //=====short cuts====
 function initShortCut() {
