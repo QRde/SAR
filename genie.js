@@ -182,7 +182,7 @@ function WakeupGenie() {
                         eval(text.slice(p_ + 6, q_));
                     } else if (text.indexOf('javascript:') == 0)
                         eval(text);
-                    } else if (text.slice(-1) == '=')
+                    else if (text.slice(-1) == '=')
 			alert(eval(text.slice(0,-1)));
                     else
                         setLocalStorage(fname, text);
