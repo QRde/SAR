@@ -335,6 +335,7 @@ function toggleQR() {
     }
 }
 //=====short cuts====
+function help(){initShortCut(); delete help;}
 function initShortCut(){
 	addShortCut('h+e+l+p', 'showShortCut()');
 	addShortCut('q+r', 'toggleQR()');
