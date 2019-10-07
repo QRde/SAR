@@ -338,5 +338,6 @@ Mousetrap.bind('q+r', function(e) { toggleQR();});
 function help(){
    alert(
    '"q+r": QR reader ON/OFF\n' +
-   '';
+   ''
+   );
 }
