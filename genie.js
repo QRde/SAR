@@ -334,5 +334,5 @@ function toggleQR() {
     }
 }
 function QR() {
-	toggleQR();
+	Mousetrap.bind('q+r', function(e) { toggleQR();});
 }
