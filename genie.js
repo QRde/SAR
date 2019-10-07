@@ -1,7 +1,7 @@
 /*---genie.js-------
 
 javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
-
+ 
 目標のサイトを開き上記のBookmarkletを実行すると
 機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
 機能2: jsファイルのDnDで、javascriptが実行されます。
@@ -82,6 +82,7 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
+    if(typeof(Mousetrap)!='undefined') setShortCuts();
     bootLoader.next();
 };
 function appendScript(c_name, source) {
@@ -333,11 +334,14 @@ function toggleQR() {
         app.scanner.stop();
     }
 }
-Mousetrap.bind('h+e+l+p', function(e) { help();});
-Mousetrap.bind('q+r', function(e) { toggleQR();});
-function help(){
-   alert(
-   '"q+r": QR reader ON/OFF\n' +
-   ''
-   );
+//=====short cuts====
+function setShortCuts(){
+	Mousetrap.bind('h+e+l+p', function(e) { help_ShortCuts();});
+	Mousetrap.bind('q+r', function(e) { toggleQR();});
+}
+var shortCuts = [
+	'"q+r": QR reader ON/OFF\n'
+	];
+function help_ShortCuts(){	
+   alert(shortCuts.join('\n'));
 }
