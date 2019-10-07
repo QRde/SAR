@@ -82,7 +82,7 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
-    if(typeof(Mousetrap)!='undefined') setShortCuts();
+    if(typeof(Mousetrap)!='undefined') initShortCut();
     bootLoader.next();
 };
 function appendScript(c_name, source) {
@@ -335,13 +335,18 @@ function toggleQR() {
     }
 }
 //=====short cuts====
-function setShortCuts(){
-	Mousetrap.bind('h+e+l+p', function(e) { help_ShortCuts();});
-	Mousetrap.bind('q+r', function(e) { toggleQR();});
+function initShortCut(){
+	addShortCut('h+e+l+p', 'showShortCut()');
+	addShortCut('q+r', 'toggleQR()');
 }
-var shortCuts = [
-	'"q+r": QR reader ON/OFF\n'
-	];
-function help_ShortCuts(){	
-   alert(shortCuts.join('\n'));
+var Short_Cut = {};
+function addShortCut(keys,func){
+    eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys',keys).replace('fnc',func));
+    Short_Cut[keys] = func;
+}
+function showShortCut(){
+   var buf = "";
+   for(var key in Short_Cut) 
+      buf += "'" +key + "' :   '" + Short_Cut[key] + "'\n";
+   alert(buf);
 }
