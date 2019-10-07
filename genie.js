@@ -184,10 +184,10 @@ function WakeupGenie() {
 			text = text.slice(p_ + 6, q_);
 			lastCmd = text;
                         eval(text);
-                    } else if (text.indexOf('javascript:') == 0)
+                    } else if (text.indexOf('javascript:') == 0){
 			lastCmd = text.slice(11);
                         eval(text);
-                    else
+		    } else
                         setLocalStorage(fname, text);
                 }
                 reader.readAsText(file);
