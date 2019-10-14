@@ -1,6 +1,6 @@
 /*---genie.js-------
 
-javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
+javascript:URLs=[];bootpwd=''; d=document;if(!d.getElementById('genie.js')) {s=d.createElement('script');s.src='https://QRde.github.io/SAR/genie.js';s.id='genie.js';d.head.appendChild(s);}else Genie();
 
 目標のサイトを開き上記のBookmarkletを実行すると
 機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
