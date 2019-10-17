@@ -16,16 +16,18 @@ Genie();
  */
 
 var bootLoader;
-Genie();
+//====Genie===================
+Genie();		//Genie Loader
 WakeupGenie();
-
-var Short_Cut = {};
-if(Object.keys(Short_Cut).length==0)	initShortCut();
-
+//====MouseTrap===============
+//
+//====INstaScan===============
 if (typeof(URLs) == 'undefined')
     InstascanPlus();
 else if (URLs.length == 0)
     InstascanPlus();
+//--end---
+
 
 function Genie() {
     /*暗号化データ解凍用libraryを最初にimport*/
@@ -357,6 +359,7 @@ function toggleQR() {
     }
 }
 //=====short cuts====
+var Short_Cut = {};
 function initShortCut() {
     addShortCut('h+e+l+p', 'showShortCut()');
     if (getUserType() >= 3)
