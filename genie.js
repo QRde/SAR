@@ -19,6 +19,7 @@ var bootLoader;
 Genie();
 WakeupGenie();
 
+var Short_Cut = {};
 if(Object.keys(Short_Cut).length==0)	initShortCut();
 
 if (typeof(URLs) == 'undefined')
@@ -361,7 +362,6 @@ function initShortCut() {
     if (getUserType() >= 3)
 		addShortCut('q+r', 'toggleQR()');
 }
-var Short_Cut = {};
 function addShortCut(keys, func) {
     eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
     Short_Cut[keys] = func;
