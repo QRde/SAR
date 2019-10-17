@@ -85,7 +85,7 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
-    if (typeof(Mousetrap) != 'undefined' && Short_Cut.length== 0)
+    if (typeof(Mousetrap) != 'undefined' && Object.keys(Short_Cut).length==0)
         setTimeout(initShortCut(), 1000);
     bootLoader.next();
 };
