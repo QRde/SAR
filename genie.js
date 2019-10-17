@@ -1,6 +1,6 @@
 /*---genie.js-------
 
-javascript:URLs=[];bootpwd=''; d=document;if(!d.getElementById('genie.js')) {s=d.createElement('script');s.src='https://QRde.github.io/SAR/genie.js';s.id='genie.js';d.head.appendChild(s);}else Genie();
+javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
 
 目標のサイトを開き上記のBookmarkletを実行すると
 機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
@@ -15,14 +15,17 @@ Genie();
 })();
  */
 
+var bootLoader;
+Genie();
 WakeupGenie();
+
+if(Object.keys(Short_Cut).length==0)	initShortCut();
+
 if (typeof(URLs) == 'undefined')
     InstascanPlus();
 else if (URLs.length == 0)
     InstascanPlus();
 
-var bootLoader;
-Genie();
 function Genie() {
     /*暗号化データ解凍用libraryを最初にimport*/
     if (typeof(URLs) == 'undefined')
@@ -41,7 +44,7 @@ function Genie() {
             localStorage.setItem('bootpwd', bootpwd);
 
     bootLoader = bootLoaderFunc();
-    bootLoader.next();
+    bootLoader.next();	
 }
 
 function  * bootLoaderFunc() {
@@ -82,7 +85,7 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
-    if (typeof(Mousetrap) != 'undefined')
+    if (typeof(Mousetrap) != 'undefined' && Short_Cut.length== 0)
         setTimeout(initShortCut(), 1000);
     bootLoader.next();
 };
@@ -338,6 +341,9 @@ function InstascanPlus() {
     tmr_collect = setInterval(collect, 200);
 }
 function toggleQR() {
+    if (getUserType() <= 2)
+        return; // iOS ha no video service
+
     var el = document.getElementById('app');
     if (!el)
         InstascanPlus();
@@ -348,13 +354,12 @@ function toggleQR() {
         el.setAttribute('style', 'display:none');
         app.scanner.stop();
     }
-    if(Object.keys(Short_Cut).length==0)
-        initShortCut();
 }
 //=====short cuts====
 function initShortCut() {
     addShortCut('h+e+l+p', 'showShortCut()');
-    addShortCut('q+r', 'toggleQR()');
+    if (getUserType() >= 3)
+		addShortCut('q+r', 'toggleQR()');
 }
 var Short_Cut = {};
 function addShortCut(keys, func) {
