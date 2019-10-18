@@ -62,6 +62,8 @@ function  * bootLoaderFunc() {
                 var source = localStorage.getItem(name);
                 if (!!source) {
                     appendScript(name, source);
+					if (name == 'mousetrap.js')
+						setTimeout(initShortCut(), 1000);
                     continue;
                 } else {
                     var oReq = new XMLHttpRequest();
@@ -71,8 +73,6 @@ function  * bootLoaderFunc() {
                     yield;
                 }
             }
-			if (typeof(Mousetrap) == 'function' && Object.keys(Short_Cut).length==0)
-				setTimeout(initShortCut(), 1000); // 一度だけ実行で、Freeze回避
         }
     }
 }
