@@ -16,11 +16,12 @@ Genie();
  */
 
 var bootLoader;
+var Short_Cut = {};
+
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
 //====MouseTrap===============
-//
 //====INstaScan===============
 if (typeof(URLs) == 'undefined')
     InstascanPlus();
@@ -364,7 +365,6 @@ function toggleQR() {
     }
 }
 //=====short cuts====
-var Short_Cut = {};
 function initShortCut() {
     addShortCut('h+e+l+p', 'showShortCut()');
     if (getUserType() >= 3)
