@@ -71,6 +71,8 @@ function  * bootLoaderFunc() {
                     yield;
                 }
             }
+			if (typeof(Mousetrap) == 'function' && Object.keys(Short_Cut).length==0)
+				setTimeout(initShortCut(), 1000); // 一度だけ実行で、Freeze回避
         }
     }
 }
@@ -88,8 +90,6 @@ function reqListener() {
     var name = u.slice(u.lastIndexOf('/') + 1);
     appendScript(name, source);
     localStorage.setItem(name, source);
-    if (typeof(Mousetrap) != 'undefined' && Object.keys(Short_Cut).length==0)
-        setTimeout(initShortCut(), 1000); // 一度だけ実行で、Freeze回避
     bootLoader.next();
 };
 function appendScript(c_name, source) {
