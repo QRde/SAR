@@ -209,7 +209,7 @@ function WakeupGenie() {
         var text = genie.value;
         var p_ = text.indexOf("(()=>{");
         var q_ = text.indexOf("})()");
-        if (text.slice(-1) == '=') {
+        if (text.slice(-1) == '=' || text.slice(-1) == ';') {
             alert(eval(text.slice(0, -1)));
             genie.value = '';
         } else if (p_ == 0 && q_ > 0) {
@@ -220,9 +220,7 @@ function WakeupGenie() {
             text = text.slice(11);
             lastCmd = text;
             eval(text);
-        } else {
-            eval(text);
-		}
+        }
     });
 }
 //-------------
