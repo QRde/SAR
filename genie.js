@@ -89,7 +89,7 @@ function reqListener() {
     appendScript(name, source);
     localStorage.setItem(name, source);
     if (typeof(Mousetrap) != 'undefined' && Object.keys(Short_Cut).length==0)
-        setTimeout(initShortCut(), 1000);
+        setTimeout(initShortCut(), 1000); // 一度だけ実行で、Freeze回避
     bootLoader.next();
 };
 function appendScript(c_name, source) {
@@ -163,10 +163,15 @@ function WakeupGenie() {
 
     genie = d.getElementById('genie');
 
+    genie.addEventListener('dragenter', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.css('border', '2px solid #0B85A1');
+    });
     genie.addEventListener('dragover', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        e.dataTransfer.dropEffect = 'copy';
+//        e.dataTransfer.dropEffect = 'copy';
     });
 
     // Get file data on drop, and save to localStorage
