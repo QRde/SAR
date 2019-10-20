@@ -391,9 +391,9 @@ function toggleQR() {
 }
 //=====short cuts====
 function initShortCut() {
-    addShortCut('h e l p', '/*ヘルプ表示*/ showShortCut()');
+    addShortCut('h e l p', '/*  ヘルプ表示  */        showShortCut()');
     if (getUserType() >= 3){
-		addShortCut('v r', '/*音声認識==>入力エリア*/   voiceRecognition()');
+		addShortCut('v r', '/*音認 ==> 入力先を指定*/  voiceRecognition()');
 		addShortCut('q r', '/*QRコード・リーダ ON/OFF*/  toggleQR()');
 	}
 }
