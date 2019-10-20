@@ -405,7 +405,7 @@ function showShortCut() {
     var buf = "";
     for (var key in Short_Cut){
 		var text = Short_Cut[key];
-			text = text.replace('/*','')replace('*/','');
+			text = text.replace('/*','').replace('*/','');
         buf += "'" + key + "' :   '" + text + "'\n";
 	}
     alert(buf);
