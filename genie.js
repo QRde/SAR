@@ -403,10 +403,11 @@ function addShortCut(keys, func) {
 }
 function showShortCut() {
     var buf = "";
-    for (var key in Short_Cut)
+    for (var key in Short_Cut){
 		var text = Short_Cut[key];
 		if(text.indexOf('/*')>=0)
 			text = text.slice(text.indexOf('/*')+2, text.indexOf('*/'));
         buf += "'" + key + "' :   '" + text + "'\n";
+	}
     alert(buf);
 }
