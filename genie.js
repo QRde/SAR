@@ -151,13 +151,13 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
-function voiceRecog(){
-	if($('#voiceRecog').val()== '🎤'){
+function voiceRecognition(){
+	if($('#voiceRecognition').val()== '🎤'){
 		recognition.start();
-		$('#voiceRecog').val('■');
+		$('#voiceRecognition').val('■');
 	}else{
 		recognition.stop();
-		$('#voiceRecog').val('🎤');
+		$('#voiceRecognition').val('🎤');
 	}
 }
 var lastCmd = '';
@@ -167,7 +167,7 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('class', 'inline-block_test');
-    var buf ='<input id="voiceRecog" type="button" onclick="voiceRecog()" value="🎤" style="background-color:#e0e0ff">'
+    var buf ='<input id="voiceRecognition" type="button" onclick="voiceRecognition()" value="🎤" style="background-color:#e0e0ff">'
 		 + '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
          + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
     el.innerHTML = buf;
@@ -247,7 +247,7 @@ function WakeupGenie() {
 	recognition.addEventListener('result', function(event){
 		var text = event.results.item(0).item(0).transcript;
 		document.activeElement.value = text;
-		setTimeout((function(){recognition.stop(); $('#voiceRecog').val('🎤');}),200);
+		setTimeout((function(){recognition.stop(); $('#voiceRecognition').val('🎤');}),200);
 	}, false);	
 }
 //-------------
@@ -266,7 +266,7 @@ function getUserType() {
             return i;
         }
     }
-    return i;
+    return i;	//PCでは 4　になる
 }
 function InstascanPlus() {
     if (getUserType() <= 2)
@@ -392,8 +392,10 @@ function toggleQR() {
 //=====short cuts====
 function initShortCut() {
     addShortCut('h+e+l+p', 'showShortCut()');
-    if (getUserType() >= 3)
+    if (getUserType() >= 3){
+		addShortCut('v+r', 'voiceRecognition()');
 		addShortCut('q+r', 'toggleQR()');
+	}
 }
 function addShortCut(keys, func) {
     eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
