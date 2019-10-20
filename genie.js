@@ -178,7 +178,7 @@ function WakeupGenie() {
     genie.addEventListener('dragenter', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        e.css('border', '2px solid #0B85A1');
+        // e.css('border', '2px solid #0B85A1');
     });
     genie.addEventListener('dragover', function (e) {
         e.stopPropagation();
