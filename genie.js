@@ -393,7 +393,7 @@ function toggleQR() {
 function initShortCut() {
     addShortCut('h+e+l+p', 'showShortCut()');
     if (getUserType() >= 3){
-		addShortCut('v+r', 'voiceRecognition()');
+		addShortCut('v+i', 'voiceRecognition()');
 		addShortCut('q+r', 'toggleQR()');
 	}
 }
