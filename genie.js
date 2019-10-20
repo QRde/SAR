@@ -391,10 +391,10 @@ function toggleQR() {
 }
 //=====short cuts====
 function initShortCut() {
-    addShortCut('h+e+l+p', 'showShortCut()');
+    addShortCut('h e l p', 'showShortCut()');
     if (getUserType() >= 3){
-		addShortCut('v+i', 'voiceRecognition()');
-		addShortCut('q+r', 'toggleQR()');
+		addShortCut('v r', 'voiceRecognition()');
+		addShortCut('q r', 'toggleQR()');
 	}
 }
 function addShortCut(keys, func) {
