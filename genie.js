@@ -167,9 +167,9 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('class', 'inline-block_test');
-    var buf = '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
-         + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>'
-		 + '<input id="voiceRecog" type="button" onclick="voiceRecog()" value="🎤" style="background-color:#e0e0e0">';
+    var buf ='<input id="voiceRecog" type="button" onclick="voiceRecog()" value="🎤" style="background-color:#e0e0ff">'
+		 + '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
+         + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
