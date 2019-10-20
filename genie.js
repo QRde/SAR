@@ -17,7 +17,7 @@ Genie();
 
 var bootLoader;
 var Short_Cut = {};
-
+var recognition;	//音声認識
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -242,7 +242,7 @@ function WakeupGenie() {
 	// voice recognition
 	//=======================
 	window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-	var recognition = new webkitSpeechRecognition();
+	recognition = new webkitSpeechRecognition();
 	recognition.lang = 'ja';
 	recognition.addEventListener('result', function(event){
 		var text = event.results.item(0).item(0).transcript;
