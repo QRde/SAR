@@ -160,8 +160,8 @@ function WakeupGenie() {
     el.setAttribute('class', 'inline-block_test');
     var buf = '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
          + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
-		 + '<input type="button" onClick="recognition.start()" value="音認" />'
-		 + '<input type="button" onClick="recognition.stop()" value="停止" />'
+		 + '<input type="button" onClick="recognition.start()" value="音認">音認</input>'
+		 + '<input type="button" onClick="recognition.stop()" value="停止">停止</input>'
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
