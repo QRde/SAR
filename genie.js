@@ -391,10 +391,10 @@ function toggleQR() {
 }
 //=====short cuts====
 function initShortCut() {
-    addShortCut('h e l p', 'showShortCut()');
+    addShortCut('h e l p', '/*ヘルプ表示*/ showShortCut()');
     if (getUserType() >= 3){
-		addShortCut('v r', 'voiceRecognition()');
-		addShortCut('q r', 'toggleQR()');
+		addShortCut('v r', '/*音声認識==>入力エリア*/   voiceRecognition()');
+		addShortCut('q r', '/*QRコード・リーダ ON/OFF*/  toggleQR()');
 	}
 }
 function addShortCut(keys, func) {
