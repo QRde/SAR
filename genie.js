@@ -151,6 +151,15 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
+function voiceRecog(){
+	if($('#voiceRecog').val()== '🎤'){
+		recognition.start();
+		$('#voiceRecog').val('■');
+	}else{
+		recognition.stop();
+		$('#voiceRecog').val('🎤');
+	}
+}
 var lastCmd = '';
 function WakeupGenie() {
     var d = document;
@@ -160,8 +169,7 @@ function WakeupGenie() {
     el.setAttribute('class', 'inline-block_test');
     var buf = '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
          + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>'
-		 + '<input type="button" onClick="recognition.start()" value="音認"/>'
-		 + '<input type="button" onClick="recognition.stop()" value="停止"/>';
+		 + '<input id="voiceRecog" type="button" onclick="voiceRecog()" value="🎤" style="background-color:#e0e0e0">';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
