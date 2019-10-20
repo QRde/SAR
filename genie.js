@@ -247,6 +247,7 @@ function WakeupGenie() {
 	recognition.addEventListener('result', function(event){
 		var text = event.results.item(0).item(0).transcript;
 		$("#genie").val(text);
+		voiceRecog();
 	}, false);	
 }
 //-------------
