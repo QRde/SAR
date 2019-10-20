@@ -246,7 +246,7 @@ function WakeupGenie() {
 	recognition.lang = 'ja';
 	recognition.addEventListener('result', function(event){
 		var text = event.results.item(0).item(0).transcript;
-		$("#genie").val(text);
+		document.activeElement.value = text;
 		setTimeout((function(){recognition.stop(); $('#voiceRecog').val('🎤');}),200);
 	}, false);	
 }
