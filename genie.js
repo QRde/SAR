@@ -21,6 +21,7 @@ var Short_Cut = {};
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
+//Voice recognition
 //====MouseTrap===============
 //====INstaScan===============
 if (typeof(URLs) == 'undefined')
@@ -159,6 +160,8 @@ function WakeupGenie() {
     el.setAttribute('class', 'inline-block_test');
     var buf = '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
          + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
+		 + '<input type="button" onClick="recognition.start()" value="音認" />'
+		 + '<input type="button" onClick="recognition.stop()" value="停止" />'
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
@@ -209,19 +212,34 @@ function WakeupGenie() {
         var text = genie.value;
         var p_ = text.indexOf("(()=>{");
         var q_ = text.indexOf("})()");
-        if (text.slice(-1) == '=' || text.slice(-1) == ';') {
+        if (text.slice(-1) == '=') {
             alert(eval(text.slice(0, -1)));
+            genie.value = '';
+		}if (text.slice(-1) == ';') {
+            eval(text);
             genie.value = '';
         } else if (p_ == 0 && q_ > 0) {
             text = text.slice(p_ + 6, q_);
             lastCmd = text;
             eval(text);
+            genie.value = '';
         } else if (text.indexOf('javascript:') == 0) {
             text = text.slice(11);
             lastCmd = text;
             eval(text);
+            genie.value = '';
         }
     });
+	//=======================
+	// voice recognition
+	//=======================
+	window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+	var recognition = new webkitSpeechRecognition();
+	recognition.lang = 'ja';
+	recognition.addEventListener('result', function(event){
+		var text = event.results.item(0).item(0).transcript;
+		$("#genie").val(text);
+	}, false);	
 }
 //-------------
 // InstascanPlus
