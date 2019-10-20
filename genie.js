@@ -407,6 +407,6 @@ function showShortCut() {
 		var text = Short_Cut[key];
 		if(text.indexOf('/*')>=0)
 			text = text.slice(text.indexOf('/*')+2, text.indexOf('*/'));
-        buf += "'" + key + "' :   '" + Short_Cut[key] + "'\n";
+        buf += "'" + key + "' :   '" + text + "'\n";
     alert(buf);
 }
