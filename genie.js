@@ -178,7 +178,7 @@ function WakeupGenie() {
     genie.addEventListener('dragenter', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        // e.css('border', '2px solid #0B85A1');
+        //e.css('border', '2px solid #0B85A1');
     });
     genie.addEventListener('dragover', function (e) {
         e.stopPropagation();
@@ -221,8 +221,8 @@ function WakeupGenie() {
         var p_ = text.indexOf("(()=>{");
         var q_ = text.indexOf("})()");
         if (text.slice(-1) == '=') {
-            alert(eval(text.slice(0, -1)));
-            genie.value = '';
+            genie.value = eval(text.slice(0, -1));
+			setTimeout((()=>{genie.value='';}),1500);
 		}if (text.slice(-1) == ';') {
             eval(text);
             genie.value = '';
