@@ -221,8 +221,8 @@ function WakeupGenie() {
         var p_ = text.indexOf("(()=>{");
         var q_ = text.indexOf("})()");
         if (text.slice(-1) == '=') {
-            genie.value = eval(text.slice(0, -1));
-			setTimeout((()=>{genie.value='';}),1500);
+            genie.value = genie.value +' '+ eval(text.slice(0, -1));
+			setTimeout((()=>{genie.value='';}),2000);
 		}if (text.slice(-1) == ';') {
             eval(text);
             genie.value = '';
