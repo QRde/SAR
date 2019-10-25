@@ -346,7 +346,7 @@ function InstascanPlus() {
                 var txt = li[i].title.replace(/\?/g, '').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
                 b.push(txt);
                 li[i].innerHTML = txt;
-                f = b.join(' \n');
+                f = b.join(' \n').trim();
                 c = d.getElementById('genie');
             }
             if (typeof(c) != 'undefined') {
@@ -372,7 +372,7 @@ function InstascanPlus() {
             delete tmr_collect;
         }
     };
-    tmr_collect = setInterval(collect, 200);
+    tmr_collect = setInterval(collect, 500);
 }
 function toggleQR() {
     if (getUserType() <= 2)
