@@ -21,13 +21,17 @@ var recognition;	//音声認識
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
+
 //Voice recognition
 //====MouseTrap===============
 //====INstaScan===============
-if (typeof(URLs) == 'undefined')
-    InstascanPlus();
-else if (URLs.length == 0)
-    InstascanPlus();
+if (getUserType() <= 2){	// iOSでは無効とする
+	document.getElementById('Instascan').remove();
+	document.getElementById('voiceRecognition').remove();
+}else{
+    setupInstascan();
+	setupVoiceRecognition();
+}
 //--end---
 
 
@@ -168,7 +172,7 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('class', 'inline-block_test');
     var buf ='<input id="voiceRecognition" type="button" onclick="voiceRecognition()" value="🎤" style="background-color:#e0e0ff">'
-		 + '<button style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
+		 + '<button id="Instascan" style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
          + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
@@ -238,17 +242,6 @@ function WakeupGenie() {
             genie.value = '';
         }
     });
-	//=======================
-	// voice recognition
-	//=======================
-	window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-	recognition = new webkitSpeechRecognition();
-	recognition.lang = 'ja';
-	recognition.addEventListener('result', function(event){
-		var text = event.results.item(0).item(0).transcript;
-		document.activeElement.value = text;
-		setTimeout((function(){recognition.stop(); $('#voiceRecognition').val('🎤');}),200);
-	}, false);	
 }
 //-------------
 // InstascanPlus
@@ -268,7 +261,25 @@ function getUserType() {
     }
     return i;	//PCでは 4　になる
 }
-function InstascanPlus() {
+
+//=======================
+// voice recognition
+//=======================
+function setupVoiceRecognition() {
+	window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+	recognition = new webkitSpeechRecognition();
+	recognition.lang = 'ja';
+	recognition.addEventListener('result', function(event){
+		var text = event.results.item(0).item(0).transcript;
+		document.activeElement.value = text;
+		setTimeout((function(){recognition.stop(); $('#voiceRecognition').val('🎤');}),200);
+	}, false);	
+}
+
+//=======================
+// Instascan
+//=======================
+function setupInstascan() {
     if (getUserType() <= 2)
         return; // iOS ha no video service
     var d = document;
@@ -334,7 +345,7 @@ function InstascanPlus() {
     setTimeout((function () {
             appendScriptSrc("app.js", "https://schmich.github.io/instascan/app.js")
         }), 1000);
-
+		setTimeout((function(){app.scanner.stop();}),3000);
     function collect() {
         var app = document.getElementById('app');
         if (app) {
@@ -372,7 +383,7 @@ function InstascanPlus() {
             delete tmr_collect;
         }
     };
-    tmr_collect = setInterval(collect, 500);
+    tmr_collect = setInterval(collect, 200);
 }
 function toggleQR() {
     if (getUserType() <= 2)
