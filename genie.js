@@ -18,6 +18,7 @@ Genie();
 var bootLoader;
 var Short_Cut = {};
 var recognition;	//音声認識
+var qrON = false;
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -280,8 +281,6 @@ function setupVoiceRecognition() {
 // Instascan
 //=======================
 function setupInstascan() {
-    if (getUserType() <= 2)
-        return; // iOS ha no video service
     var d = document;
     var bdr = d.createElement('div');
     bdr.id = '---border---';
@@ -345,7 +344,7 @@ function setupInstascan() {
     setTimeout((function () {
             appendScriptSrc("app.js", "https://schmich.github.io/instascan/app.js")
         }), 1000);
-		setTimeout((function(){app.scanner.stop();}),3000);
+		setTimeout((function(){app.scanner.stop();}),10000);
     function collect() {
         var app = document.getElementById('app');
         if (app) {
@@ -395,10 +394,18 @@ function toggleQR() {
     else if (el.style.display == 'none') {
         el.setAttribute('style', 'display:blocked');
         app.scanner.start();
+		qrON = true;
     } else {
         el.setAttribute('style', 'display:none');
         app.scanner.stop();
+		qrON = false;
     }
+}
+function scanner_start(){
+	app.scanner.start();
+}
+function scanner_stop(){
+	app.scanner.stop();
 }
 //=====short cuts====
 function initShortCut() {
