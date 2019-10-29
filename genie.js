@@ -20,7 +20,6 @@ var Short_Cut = {};
 var recognition;	//音声認識
 var qrON = false;
 var speakBuff = [];
-var uttr = new SpeechSynthesisUtterance(); 
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -42,6 +41,7 @@ function speak(txt, lang, rate) {
     if(txt.length>0) 	speakBuff.push(txt);
 	if(speakBuff.length>0) {
 		if(!(speechSynthesis.pending || speechSynthesis.speaking)) {
+			var uttr = new SpeechSynthesisUtterance(); 
 			uttr.text = speakBuff.shift();
 			if(lang==undefined) uttr.lang = 'ja-JP'; else uttr.lang = lang;
 			if(rate==undefined) uttr.rate = 1.0    ; else uttr.rate = rate;
