@@ -19,6 +19,8 @@ var bootLoader;
 var Short_Cut = {};
 var recognition;	//音声認識
 var qrON = false;
+var speakBuff = [];
+var uttr = new SpeechSynthesisUtterance(); 
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -34,7 +36,21 @@ if (getUserType() <= 2){	// iOSでは無効とする
 	setupVoiceRecognition();
 }
 //--end---
+//TTS
 
+function speak(txt, lang, rate) {
+    if(txt.length>0) 	speakBuff.push(txt);
+	if(speakBuff.length>0) {
+		if(!(speechSynthesis.pending || speechSynthesis.speaking)) {
+			uttr.text = speakBuff.shift();
+			if(lang==undefined) uttr.lang = 'ja-JP'; else uttr.lang = lang;
+			if(rate==undefined) uttr.rate = 1.0    ; else uttr.rate = rate;
+			speechSynthesis.speak(uttr);
+		} else {
+			setTimeout(speak, 1000, '');
+		}
+	}
+}
 
 function Genie() {
     /*暗号化データ解凍用libraryを最初にimport*/
@@ -344,7 +360,10 @@ function setupInstascan() {
     setTimeout((function () {
             appendScriptSrc("app.js", "https://schmich.github.io/instascan/app.js")
         }), 1000);
-		setTimeout((function(){app.scanner.stop();}),10000);
+		try{
+			setTimeout((function(){app.scanner.stop();}),10000);
+		}catch{
+		};
     function collect() {
         var app = document.getElementById('app');
         if (app) {
