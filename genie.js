@@ -35,23 +35,25 @@ if (getUserType() <= 2){	// iOSでは無効とする
 	setupVoiceRecognition();
 }
 //--end---
-//TTS
 
-function speak(txt, lang, rate) {
+
+function speak(txt, lang, volume, rate, pitch) {
     if(txt.length>0) 	speakBuff.push(txt);
 	if(speakBuff.length>0) {
 		if(!(speechSynthesis.pending || speechSynthesis.speaking)) {
 			var uttr = new SpeechSynthesisUtterance(); 
 			uttr.text = speakBuff.shift();
 			if(lang==undefined) uttr.lang = 'ja-JP'; else uttr.lang = lang;
+			if(volume==undefined) uttr.volume = 1.0    ; else uttr.volume = volume;
 			if(rate==undefined) uttr.rate = 1.0    ; else uttr.rate = rate;
+			if(pitch==undefined) uttr.pitch = 1.0    ; else uttr.pitch = pitch;
 			speechSynthesis.speak(uttr);
 		} else {
 			setTimeout(speak, 1000, '');
 		}
 	}
 }
-
+	
 function Genie() {
     /*暗号化データ解凍用libraryを最初にimport*/
     if (typeof(URLs) == 'undefined')
