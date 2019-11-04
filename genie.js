@@ -363,7 +363,8 @@ function setupInstascan() {
             appendScriptSrc("app.js", "https://schmich.github.io/instascan/app.js")
         }), 1000);
 		try{
-			setTimeout((function(){app.scanner.stop();}),10000);
+			setTimeout((function(){if(!qrON)app.scanner.stop();}),10000);
+			setTimeout((function(){if(!qrON)app.scanner.stop();}),30000);
 		}catch{
 		};
     function collect() {
