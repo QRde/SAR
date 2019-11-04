@@ -43,7 +43,7 @@ function speak(txt, lang, volume, rate, pitch) {
 		if(!(speechSynthesis.pending || speechSynthesis.speaking)) {
 			var uttr = new SpeechSynthesisUtterance(); 
 			uttr.text = speakBuff.shift();
-			if(lang.length==0) uttr.lang = 'ja-JP'; else uttr.lang = lang;
+			if(lang==undefined) uttr.lang = 'ja-JP'; else uttr.lang = lang;
 			if(volume==undefined) uttr.volume = 1.0    ; else uttr.volume = volume;
 			if(rate==undefined) uttr.rate = 1.0    ; else uttr.rate = rate;
 			if(pitch==undefined) uttr.pitch = 1.0    ; else uttr.pitch = pitch;
