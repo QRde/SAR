@@ -431,22 +431,28 @@ function scanner_stop(){
 }
 //=====short cuts====
 function initShortCut() {
-    addShortCut('h e l p', '/*  ヘルプ表示  */        showShortCut()');
+    addShortCut('help', '/*  ヘルプ表示  */        showShortCut()');
     if (getUserType() >= 3){
-		addShortCut('v r', '/*音認 ==> 入力先を指定*/  voiceRecognition()');
-		addShortCut('q r', '/*QRコード・リーダ ON/OFF*/  toggleQR()');
+		addShortCut('vr', '/*音認 ==> 入力先を指定*/  voiceRecognition()');
+		addShortCut('qr', '/*QRコード・リーダ ON/OFF*/  toggleQR()');
 	}
 }
 function addShortCut(keys, func) {
+	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys, func);
+	else addShortCut_Org(keys.split('').join(' '), func);
+	
+}
+function addShortCut_Org(keys, func) {
     eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
     Short_Cut[keys] = func;
 }
+
 function showShortCut() {
     var buf = "";
     for (var key in Short_Cut){
 		var text = Short_Cut[key];
 			text = text.replace('/*','').replace('*/','');
-        buf += "'" + key + "' :   '" + text + "'\n";
+        buf += "'" + key.replace(' ','') + "' :   '" + text + "'\n";
 	}
     alert(buf);
 }
