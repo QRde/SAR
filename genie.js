@@ -371,22 +371,23 @@ function setupInstascan() {
         var app = document.getElementById('app');
         if (app) {
             var li = app.getElementsByTagName('li');
+            var c = d.getElementById('genie');
             var b = [];
             var f = [];
-            var c;
             for (var i = li.length - 1; i > 0; i--) {
                 var txt = li[i].title.replace(/\?/g, '').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
                 b.push(txt);
                 li[i].innerHTML = txt;
                 f = b.join(' \n').trim();
-                c = d.getElementById('genie');
             }
             if (typeof(c) != 'undefined') {
                 var p = f.indexOf('<');
                 if (p > 0)
                     f = f.slice(0, p); //for Andoroid
-                if (c.value.length < f.length)
+                if (c.value.length < f.length){
                     c.value = f.trim();
+					speak("p","en-US",0.5);
+				}
                 //即時実行アロー関数形式なら (()=>{ /*関数本体*/ })();
                 var p_ = c.value.indexOf("(()=>{");
                 var q_ = c.value.indexOf("})()");
