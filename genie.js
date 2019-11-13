@@ -452,7 +452,7 @@ function showShortCut() {
     for (var key in Short_Cut){
 		var text = Short_Cut[key];
 			text = text.replace('/*','').replace('*/','');
-        buf += "'" + key.replace(' ','') + "' :   '" + text + "'\n";
+        buf += "'" + key.replace(/ /g,'') + "' :   '" + text + "'\n";
 	}
     return(buf);
 }
