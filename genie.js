@@ -164,11 +164,8 @@ function WakeupGenie() {
     var el;
     el = document.createElement('div');
     el.id = 'genie-block';
-    el.setAttribute('class', 'inline-block_test');
-    var buf = /*'<input id="voiceRecognition" type="button" onclick="voiceRecognition()" value="🎤" style="background-color:#e0e0ff">'
-		 + '<button id="Instascan" style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
-         + */
-		 '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
+    el.setAttribute('style', 'width:100%');
+    var buf = '<input id="genie" style="width:100%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
