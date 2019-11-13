@@ -20,6 +20,7 @@ var Short_Cut = {};
 var recognition;	//音声認識
 var qrON = false;
 var speakBuff = [];
+var result;
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -455,4 +456,5 @@ function showShortCut() {
         buf += "'" + key.replace(' ','') + "' :   '" + text + "'\n";
 	}
     alert(buf);
+	result = buf;
 }
