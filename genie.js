@@ -378,7 +378,7 @@ function setupInstascan() {
                 var txt = li[i].title.replace(/\?/g, '').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
                 b.push(txt);
                 li[i].innerHTML = txt;
-                f = b.join(' \n').trim();
+                f = b.join(' ').trim();
             }
             if (typeof(c) != 'undefined') {
                 var p = f.indexOf('<');
