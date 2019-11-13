@@ -454,5 +454,5 @@ function showShortCut() {
 			text = text.replace('/*','').replace('*/','');
         buf += "'" + key.replace(' ','') + "' :   '" + text + "'\n";
 	}
-    alert(buf);
+    return(buf);
 }
