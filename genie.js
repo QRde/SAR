@@ -3,9 +3,8 @@
 javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
 
 目標のサイトを開き上記のBookmarkletを実行すると
-機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
-機能2: jsファイルのDnDで、javascriptが実行されます。
-機能3: javascriptを直接入力してblurすると、javascriptが実行されます。
+機能1: jsファイルのDnDで、javascriptが実行されます。
+機能2: javascriptを直接入力してblurすると、javascriptが実行されます。
 
 QRコードの例、アロー形式の即時実行型がお薦め
 (()=>{
@@ -169,9 +168,7 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('class', 'inline-block_test');
-    var buf ='<input id="voiceRecognition" type="button" onclick="voiceRecognition()" value="🎤" style="background-color:#e0e0ff">'
-		 + '<button id="Instascan" style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
-         + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
+    var buf ='<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
