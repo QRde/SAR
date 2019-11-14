@@ -3,10 +3,11 @@
 javascript:d=document;s=d.createElement('script');s.src='https://bit.ly/2mUZwkh';s.id='genie.js';d.head.appendChild(s);
 
 目標のサイトを開き上記のBookmarkletを実行すると
-機能1: jsファイルのDnDで、javascriptが実行されます。
-機能2: javascriptを直接入力してblurすると、javascriptが実行されます。
+機能1: 読み込んだQRコードに記載されたjavascriptが実行されます。
+機能2: jsファイルのDnDで、javascriptが実行されます。
+機能3: javascriptを直接入力してblurすると、javascriptが実行されます。
 
-コードの例、アロー形式の即時実行型がお薦め
+QRコードの例、アロー形式の即時実行型がお薦め
 (()=>{
 bootpwd = '';
 URLs=['https://xxxxx/abc.js'  , 'https://yyyy/efg.js'];
@@ -16,10 +17,25 @@ Genie();
 
 var bootLoader;
 var Short_Cut = {};
+var recognition;	//音声認識
+var qrON = false;
 var speakBuff = [];
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
+
+//Voice recognition
+//====MouseTrap===============
+//====INstaScan===============
+if (getUserType() <= 2){	// iOSでは無効とする
+	document.getElementById('Instascan').remove();
+	document.getElementById('voiceRecognition').remove();
+}else{
+    setupInstascan();
+	setupVoiceRecognition();
+}
+//--end---
+
 
 function speak(txt, lang, volume, rate, pitch) {
     if(txt.length>0) 	speakBuff.push(txt);
@@ -158,14 +174,25 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
+function voiceRecognition(){
+	if($('#voiceRecognition').val()== '🎤'){
+		recognition.start();
+		$('#voiceRecognition').val('■');
+	}else{
+		recognition.stop();
+		$('#voiceRecognition').val('🎤');
+	}
+}
 var lastCmd = '';
 function WakeupGenie() {
     var d = document;
     var el;
     el = document.createElement('div');
     el.id = 'genie-block';
-    el.setAttribute('style', 'width:100%');
-    var buf = '<input id="genie" style="width:100%; background-color:#e0e0ff"></input>';
+    el.setAttribute('class', 'inline-block_test');
+    var buf ='<input id="voiceRecognition" type="button" onclick="voiceRecognition()" value="🎤" style="background-color:#e0e0ff">'
+		 + '<button id="Instascan" style="background-color:#e0e0ff" onclick="toggleQR()">QR</button>'
+         + '<input id="genie" size="50" style="background-color:#e0e0ff" placehoder="DnD or direct JS-code"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
@@ -174,10 +201,12 @@ function WakeupGenie() {
     genie.addEventListener('dragenter', function (e) {
         e.stopPropagation();
         e.preventDefault();
+        //e.css('border', '2px solid #0B85A1');
     });
     genie.addEventListener('dragover', function (e) {
         e.stopPropagation();
         e.preventDefault();
+//        e.dataTransfer.dropEffect = 'copy';
     });
 
     // Get file data on drop, and save to localStorage
@@ -233,14 +262,6 @@ function WakeupGenie() {
         }
     });
 }
-function pasteTo(id){
-	if(navigator.clipboard){
-		navigator.clipboard.readText()
-		.then(function(text){
-			document.getElementById(id).value = text;
-		});
-	}
-}
 //-------------
 // InstascanPlus
 //-------------
@@ -260,9 +281,163 @@ function getUserType() {
     return i;	//PCでは 4　になる
 }
 
+//=======================
+// voice recognition
+//=======================
+function setupVoiceRecognition() {
+	window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+	recognition = new webkitSpeechRecognition();
+	recognition.lang = 'ja';
+	recognition.addEventListener('result', function(event){
+		var text = event.results.item(0).item(0).transcript;
+		document.activeElement.value = text;
+		setTimeout((function(){recognition.stop(); $('#voiceRecognition').val('🎤');}),200);
+	}, false);	
+}
+
+//=======================
+// Instascan
+//=======================
+function setupInstascan() {
+    var d = document;
+    var bdr = d.createElement('div');
+    bdr.id = '---border---';
+    d.body.insertBefore(bdr, d.body.firstChild.nextSibling);
+    var e = document.createElement('style');
+    e.setAttribute('id', 'style');
+    var buf = '';
+    buf = buf + 'body, html {   padding: 0;   margin: 0;   font-family: "Helvetica Neue", "Calibri", Arial, sans-serif;   height: 480; }';
+    buf = buf + '#app {   background: #263238;   display: flex;   align-items: stretch;   justify-content: stretch;   height: 100%; }';
+    buf = buf + '.sidebar {   background: #eceff1;   min-width: 250px;   display: flex;   flex-direction: column;   justify-content: flex-start;   overflow: auto; }';
+    buf = buf + '.sidebar h2 {   font-weight: normal;   font-size: 1.0rem;   background: #607d8b;   color: #fff;   padding: 10px;   margin: 0; }';
+    buf = buf + '.sidebar ul {   margin: 0;   padding: 0;   list-style-type: none; }';
+    buf = buf + '.sidebar li {   line-height: 175%;   white-space: nowrap;   overflow: hidden;   text-wrap: none;   text-overflow: ellipsis; }';
+    buf = buf + '.cameras ul {   padding: 15px 20px; }';
+    buf = buf + '.cameras .active {   font-weight: bold;   color: #009900; }';
+    buf = buf + '.cameras a {   color: #555;   text-decoration: none;   cursor: pointer; }';
+    buf = buf + '.cameras a:hover {   text-decoration: underline; }';
+    buf = buf + '.scans li {   padding: 10px 20px;   border-bottom: 1px solid #ccc; }';
+    buf = buf + '.scans-enter-active {   transition: background 3s; }';
+    buf = buf + '.scans-enter {   background: yellow; }';
+    buf = buf + '.empty {   font-style: italic; }';
+    buf = buf + '.preview-container {   flex-direction: column;   align-items: center;   justify-content: center;   display: flex;   width: 100%;   overflow: hidden; }';
+    e.innerHTML = buf;
+    var border = d.getElementById('---border---');
+    border.parentNode.insertBefore(e, border);
+    var el = d.createElement('div');
+    el.id = 'app';
+    buf = '<div class="sidebar">'
+         + '	  <section class="cameras">'
+         + '       <h2>Cameras</h2>'
+         + '       <ul>'
+         + '          <li v-if="cameras.length === 0" class="empty">No cameras found</li>'
+         + '          <li v-for="camera in cameras">'
+         + '          <span v-if="camera.id == activeCameraId" :title="formatName(camera.name)" class="active">{{ formatName(camera.name) }}</span>'
+         + '          <span v-if="camera.id != activeCameraId" :title="formatName(camera.name)">'
+         + '             <a @click.stop="selectCamera(camera)">{{ formatName(camera.name) }}</a>'
+         + '          </span>'
+         + '          </li>'
+         + '       </ul>'
+         + '    </section>'
+         + '    <section class="scans">'
+         + '       <h2>Scans</h2>'
+         + '          <ul v-if="scans.length === 0">'
+         + '            <li class="empty"></li>'
+         + '          </ul>'
+         + '          <transition-group name="scans" tag="ul">'
+         + '            <li v-for="scan in scans" :key="scan.date" :title="scan.content"></li>'
+         + '          </transition-group>'
+         + '    </section>'
+         + '</div>'
+         + '<div class="preview-container">'
+         + '	  <video id="preview"></video>'
+         + '</div>'
+        el.innerHTML = buf;
+    border.parentNode.insertBefore(el, border);
+
+    d.getElementById('app').setAttribute('style', 'display:none');
+    appendScriptSrc("adapter.min.js", "https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js");
+    appendScriptSrc("vue.min.js", "https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js");
+    appendScriptSrc("instascan.min.js", "https://rawgit.com/schmich/instascan-builds/master/instascan.min.js");
+    setTimeout((function () {
+            appendScriptSrc("app.js", "https://schmich.github.io/instascan/app.js")
+        }), 1000);
+		try{
+			setTimeout((function(){if(!qrON)app.scanner.stop();}),10000);
+			setTimeout((function(){if(!qrON)app.scanner.stop();}),30000);
+		}catch{
+		};
+    function collect() {
+        var app = document.getElementById('app');
+        if (app) {
+            var li = app.getElementsByTagName('li');
+            var c = d.getElementById('genie');
+            var b = [];
+            var f = [];
+            for (var i = li.length - 1; i > 0; i--) {
+                var txt = li[i].title.replace(/\?/g, '').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+                b.push(txt);
+                li[i].innerHTML = txt;
+                f = b.join(' \n').trim();
+            }
+            if (typeof(c) != 'undefined') {
+                var p = f.indexOf('<');
+                if (p > 0)
+                    f = f.slice(0, p); //for Andoroid
+                if (c.value.length < f.length){
+                    c.value = f.trim();
+					speak("p","en-US",0.5);
+				}
+                //即時実行アロー関数形式なら (()=>{ /*関数本体*/ })();
+                var p_ = c.value.indexOf("(()=>{");
+                var q_ = c.value.indexOf("})()");
+                if (p_ == 0 && q_ > 0) {
+                    toggleQR(); //QRを隠す
+                    eval(c.value.slice(p_ + 6, q_));
+                    c.value = '';
+                    for (var i = li.length - 1; i >= 1; i--) {
+                        li[i].innerHTML = '';
+                        li[i].title = '';
+                    }
+                }
+            }
+        } else {
+            delete tmr_collect;
+        }
+    };
+    tmr_collect = setInterval(collect, 200);
+}
+function toggleQR() {
+    if (getUserType() <= 2)
+        return; // iOS ha no video service
+
+    var el = document.getElementById('app');
+    if (!el)
+        InstascanPlus();
+    else if (el.style.display == 'none') {
+        el.setAttribute('style', 'display:blocked');
+        app.scanner.start();
+		qrON = true;
+    } else {
+        el.setAttribute('style', 'display:none');
+        app.scanner.stop();
+		qrON = false;
+    }
+}
+function scanner_start(){
+	app.scanner.start();
+}
+function scanner_stop(){
+	app.scanner.stop();
+}
 //=====short cuts====
 function initShortCut() {
- }
+    addShortCut('help', '/*  ヘルプ表示  */        showShortCut()');
+    if (getUserType() >= 3){
+		addShortCut('vr', '/*音認 ==> 入力先を指定*/  voiceRecognition()');
+		addShortCut('qr', '/*QRコード・リーダ ON/OFF*/  toggleQR()');
+	}
+}
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys, func);
 	else addShortCut_Org(keys.split('').join(' '), func);
@@ -280,5 +455,6 @@ function showShortCut() {
 			text = text.replace('/*','').replace('*/','');
         buf += "'" + key.replace(/ /g,'') + "' :   '" + text + "'\n";
 	}
-    return(buf);
+    document.getElementById('genie').value = buf;
+    return buf;
 }
