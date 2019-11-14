@@ -16,8 +16,6 @@ Genie();
 
 var bootLoader;
 var Short_Cut = {};
-var recognition;	//音声認識
-var qrON = false;
 var speakBuff = [];
 //====Genie===================
 Genie();		//Genie Loader
