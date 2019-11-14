@@ -276,8 +276,8 @@ function showShortCut() {
 			text = text.replace('/*','').replace('*/','');
         buf += "'" + key.replace(/ /g,'') + "' :   '" + text + "'\n";
 	}
-    document.getElementById('genie').value = buf;
-    return buf;
+    document.getElementById('genie').value = 'ショートカット一覧　---> クリップボード';
+    setClipB( buf );
 }
 
 //
