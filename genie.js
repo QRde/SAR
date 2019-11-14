@@ -166,7 +166,7 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
-    var buf ='<input id="orderGenie" type='button' value=' ' style="width:3%; padding-left:0px; background-color:#d0d0ff"></input><input id="genie" style="width:97%; background-color:#e0e0ff"></input>';
+    var buf ='<input id="orderGenie" type="button" value=" " style="width:3%; padding-left:0px; background-color:#d0d0ff"></input><input id="genie" style="width:97%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
