@@ -165,8 +165,8 @@ function WakeupGenie() {
     var el;
     el = document.createElement('div');
     el.id = 'genie-block';
-    el.setAttribute('style', 'width=100%');
-    var buf ='<input id="genie" style="width=100%; background-color:#e0e0ff"></input>';
+    el.setAttribute('style', 'width:100%');
+    var buf ='<input id="genie" style="width:100%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
