@@ -27,13 +27,13 @@ WakeupGenie();
 //Voice recognition
 //====MouseTrap===============
 //====INstaScan===============
-if (getUserType() <= 2){	// iOSでは無効とする
-	document.getElementById('Instascan').remove();
-	document.getElementById('voiceRecognition').remove();
-}else{
-    setupInstascan();
-	setupVoiceRecognition();
-}
+//if (getUserType() <= 2){	// iOSでは無効とする
+//	document.getElementById('Instascan').remove();
+//	document.getElementById('voiceRecognition').remove();
+//}else{
+//    setupInstascan();
+//	setupVoiceRecognition();
+//}
 //--end---
 
 
