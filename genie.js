@@ -27,10 +27,10 @@ function speak(txt, lang, volume, rate, pitch) {
 		if(!(speechSynthesis.pending || speechSynthesis.speaking)) {
 			var uttr = new SpeechSynthesisUtterance(); 
 			uttr.text = speakBuff.shift();
-			if(lang==undefined) uttr.lang = 'ja-JP'; else uttr.lang = lang;
-			if(volume==undefined) uttr.volume = 1.0    ; else uttr.volume = volume;
-			if(rate==undefined) uttr.rate = 1.0    ; else uttr.rate = rate;
-			if(pitch==undefined) uttr.pitch = 1.0    ; else uttr.pitch = pitch;
+			if(lang==undefined)   uttr.lang   = 'ja-JP'; else uttr.lang  = lang;
+			if(volume==undefined) uttr.volume = 1.0    ; else uttr.volume= volume;
+			if(rate==undefined)   uttr.rate   = 1.0    ; else uttr.rate  = rate;
+			if(pitch==undefined)  uttr.pitch  = 1.0    ; else uttr.pitch = pitch;
 			speechSynthesis.speak(uttr);
 		} else {
 			setTimeout(speak, 1000, '');
@@ -43,7 +43,10 @@ function Genie() {
     if (typeof(URLs) == 'undefined')
         URLs = [];
     if (!document.getElementById('aes.js')) {
-        URLs = ['https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js', 'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js', 'https://qrde.github.io/SAR/mousetrap.js'].concat(URLs);
+        URLs = ['https://qrde.github.io/SAR/crypt-js-3.1.2-aes.js',
+				'https://qrde.github.io/SAR/crypt-js-3.1.2-pbkdf2.js',
+				'https://qrde.github.io/SAR/mousetrap.js'
+				].concat(URLs);
     }
     //保存されたPWDがあれば、それを優先させる
     var lsPW = localStorage.getItem('bootpwd');
@@ -166,7 +169,8 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
-    var buf ='<input id="GenieHome" type="button" onclick=pasteTo("genie") value=" " style="width:3%"></input><input id="genie" style="width:97%; background-color:#e0e0ff"></input>';
+    var buf ='<input id="GenieHome" type="button" onclick=pasteTo("genie") value=" " '
+			+'style="width:4%"></input><input id="genie" style="width:96%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
@@ -175,12 +179,10 @@ function WakeupGenie() {
     genie.addEventListener('dragenter', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        //e.css('border', '2px solid #0B85A1');
     });
     genie.addEventListener('dragover', function (e) {
         e.stopPropagation();
         e.preventDefault();
-//        e.dataTransfer.dropEffect = 'copy';
     });
 
     // Get file data on drop, and save to localStorage
@@ -236,17 +238,9 @@ function WakeupGenie() {
         }
     });
 }
-//-------------
-// InstascanPlus
-//-------------
-function getUserType() {
-    var ua = [
-        "iPod",
-        "iPad",
-        "iPhone",
-        "Android"
-    ]
 
+function getUserType() {
+    var ua = ["iPod", "iPad", "iPhone","Android"];
     for (var i = 0; i < ua.length; i++) {
         if (navigator.userAgent.indexOf(ua[i]) > 0) {
             return i;
@@ -257,12 +251,11 @@ function getUserType() {
 
 //=====short cuts====
 function initShortCut() {
-    addShortCut('help', '/*  ヘルプ表示  */        showShortCut()');
+    addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
 }
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys, func);
-	else addShortCut_Org(keys.split('').join(' '), func);
-	
+	else addShortCut_Org(keys.split('').join(' '), func);	
 }
 function addShortCut_Org(keys, func) {
     eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
