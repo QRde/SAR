@@ -17,7 +17,7 @@ Genie();
 var bootLoader;
 var Short_Cut = {};
 var speakBuff = [];
-var genieOrder= ['pasteTo("genie")'];
+var genieHomeWork= ['pasteTo("genie")'];
 //====Genie===================
 Genie();		//Genie Loader
 WakeupGenie();
@@ -170,7 +170,7 @@ function WakeupGenie() {
     el = document.createElement('div');
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
-    var buf ='<input id="GenieHome" type="button" onclick="execGenieOrder()" value=" " '
+    var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
 			+'style="width:4%"></input><input id="genie" style="width:96%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
@@ -240,9 +240,9 @@ function WakeupGenie() {
     });
 }
 
-function execGenieOrder() {
-	for( var i=0; i<genieOrder.length; i++ )
-		eval( genieOrder[i] );
+function execGenieHomeWork() {
+	for( var i=0; i<genieHomeWork.length; i++ )
+		eval( genieHomeWork[i] );
 }
 function getUserType() {
     var ua = ["iPod", "iPad", "iPhone","Android"];
