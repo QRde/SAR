@@ -259,7 +259,7 @@ function initShortCut() {
     addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
 }
 function addShortCut(keys, func) {
-	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys, func);
+	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
 	else addShortCut_Org(keys.split('').join(' '), func);	
 }
 function addShortCut_Org(keys, func) {
