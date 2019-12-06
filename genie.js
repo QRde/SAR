@@ -166,7 +166,7 @@ function clearGenie() {
 //----------
 // Genie serves what you wish.
 //----------
-
+// position:absolute; top:-20px; left:0px;width:4%; height:20px;
 var lastCmd = '';
 function WakeupGenie() {
     var d = document;
@@ -175,7 +175,10 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
     var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
-			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
+			+'style=" position:absolute; top:-20px; left:0px;width:4%; height:20px;">',
+			+ '</input><input id="genie" style=" position:absolute; top:-20px; left:0px;width:95%; height:20px; background-color:#e0e0ff"></input>';
+//    var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
+//			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
@@ -244,6 +247,17 @@ function WakeupGenie() {
     });
 }
 
+function showHideGenie() {
+	var _genie=document.getElementById('genie');
+	var _genieHome=document.getElementById('GenieHome');
+	if(_genie.style.top<0){
+		_genie.style.top=20;
+		_genieHome.style.top=20;
+	}else{
+		_genie.style.top=-20;
+		_genieHome.style.top=-20;
+	}
+}
 function execGenieHomeWork() {
 	for( var i=0; i<genieHomeWork.length; i++ )
 		eval( genieHomeWork[i] );
@@ -261,6 +275,7 @@ function getUserType() {
 //=====short cuts====
 function initShortCut() {
     addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
+	addShortCut('ctrl+b g', '/*genie toggle*/    showHideGenie()');
 }
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
