@@ -252,12 +252,12 @@ function showHideGenie() {
 	var _genieHome=document.getElementById('GenieHome');
 	if(_genie.style.zIndex<0){
 		_genie.style.backgroundColor="#e0e0ff";
-		_genie.style.zIndex=10000;
-		_genieHome.style.zIndex=10000;
+		_genie.style.zIndex=100;
+		_genieHome.style.zIndex=100;
 	}else{
 		_genie.style.backgroundColor="#000000";
-		_genie.style.zIndex=-10000;
-		_genieHome.style.zIndex=-10000;
+		_genie.style.zIndex=-100;
+		_genieHome.style.zIndex=-100;
 	}
 }
 function execGenieHomeWork() {
