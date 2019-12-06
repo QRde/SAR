@@ -112,7 +112,11 @@ function appendScript(c_name, source) {
     s.charset = 'UTF-8';
     s.innerHTML = source;
     //  d.head.appendChild(s);  //---headにするとメモリーの少ない機種ではフリーズする
-    d.body.appendChild(s); //---bodyなら問題ない
+	try{
+		d.body.appendChild(s); //---bodyなら問題ない
+	}catch{
+		console.log('appendScript_Err: '+c_name+'\r\n');
+	}
 }
 function appendScriptSrc(c_name, source) {
     var d = document;
@@ -171,7 +175,7 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
     var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
-			+'style="width:4%"></input><input id="genie" style="width:96%; background-color:#e0e0ff"></input>';
+			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
     d.body.insertBefore(el, d.body.firstChild);
 
