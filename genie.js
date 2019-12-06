@@ -175,7 +175,7 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
     var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
-			+'style=" position:absolute; top:-20px; left:0px;width:4%; height:20px;">',
+			+'style=" position:absolute; top:-20px; left:0px;width:4%; height:20px;">'
 			+ '</input><input id="genie" style=" position:absolute; top:-20px; left:0px;width:95%; height:20px; background-color:#e0e0ff"></input>';
 //    var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
 //			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
