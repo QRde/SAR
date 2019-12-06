@@ -275,7 +275,7 @@ function getUserType() {
 //=====short cuts====
 function initShortCut() {
     addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
-	addShortCut('ctrl+b g', '/*genie toggle*/    showHideGenie()');
+	addShortCut('ctrl+b ctrl+g', '/*genie toggle*/    showHideGenie()');
 }
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
