@@ -175,7 +175,7 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
     var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
-			+'style="z-index:-10000; position:absolute; top:0px; left:0px;width:30px; height:20px; ">'
+			+'style="z-index:-10000; position:absolute; top:2px; left:0px;width:30px; height:20px; ">'
 			+ '</input><input id="genie" style="z-index:-10000; position:absolute; left:30px;top:0px;width:95%; height:20px; background-color:#e0e0ff"></input>';
 //    var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
 //			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
@@ -275,7 +275,7 @@ function getUserType() {
 //=====short cuts====
 function initShortCut() {
     addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
-	addShortCut('ctrl+bg', '/*genie toggle*/    showHideGenie()');
+	addShortCut('alt+shift+g ', '/*genie toggle*/    showHideGenie()');
 }
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
