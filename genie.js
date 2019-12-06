@@ -253,9 +253,11 @@ function showHideGenie() {
 	if(_genie.style.top<0){
 		_genie.style.top=20;
 		_genieHome.style.top=20;
+		_genieHome.style.zIndex=1;
 	}else{
 		_genie.style.top=-20;
 		_genieHome.style.top=-20;
+		_genieHome.style.zIndex=-1;
 	}
 }
 function execGenieHomeWork() {
@@ -275,7 +277,7 @@ function getUserType() {
 //=====short cuts====
 function initShortCut() {
     addShortCut('help', '/*---ヘルプ表示---*/      showShortCut()');
-	addShortCut('ctrl+b ctrl+g', '/*genie toggle*/    showHideGenie()');
+	addShortCut('ctrl+bg', '/*genie toggle*/    showHideGenie()');
 }
 function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
