@@ -175,8 +175,8 @@ function WakeupGenie() {
     el.id = 'genie-block';
     el.setAttribute('style', 'width:100%');
     var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
-			+'style=" position:absolute; top:-20px; left:0px;width:4%; height:20px;">'
-			+ '</input><input id="genie" style=" position:absolute; top:-20px; left:0px;width:95%; height:20px; background-color:#e0e0ff"></input>';
+			+'style="z-index:-10000; position:absolute; top:0px; left:0px;width:30px; height:20px; ">'
+			+ '</input><input id="genie" style="z-index:-10000; position:absolute; left:30px;top:0px;width:95%; height:20px; background-color:#e0e0ff"></input>';
 //    var buf ='<input id="GenieHome" type="button" onclick="execGenieHomeWork()" value=" " '
 //			+'style="width:4%"></input><input id="genie" style="width:95%; background-color:#e0e0ff"></input>';
     el.innerHTML = buf;
@@ -251,13 +251,9 @@ function showHideGenie() {
 	var _genie=document.getElementById('genie');
 	var _genieHome=document.getElementById('GenieHome');
 	if(_genie.style.top<0){
-		_genie.style.top=20;
-		_genieHome.style.top=20;
-		_genieHome.style.zIndex=1;
+		_genieHome.style.zIndex=10000;
 	}else{
-		_genie.style.top=-20;
-		_genieHome.style.top=-20;
-		_genieHome.style.zIndex=-1;
+		_genieHome.style.zIndex=-10000;
 	}
 }
 function execGenieHomeWork() {
