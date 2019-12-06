@@ -254,7 +254,7 @@ function showHideGenie() {
 		_genie.style.zIndex=10000;
 		_genieHome.style.zIndex=10000;
 	}else{
-		_genie.style.zIndex=10000;
+		_genie.style.zIndex=-10000;
 		_genieHome.style.zIndex=-10000;
 	}
 }
