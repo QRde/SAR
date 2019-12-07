@@ -283,11 +283,18 @@ function addShortCut(keys, func) {
 	if(keys.indexOf(' ')>=0)	addShortCut_Org(keys.trim(), func);
 	else addShortCut_Org(keys.split('').join(' '), func);	
 }
+var ShortCutQue=[];
 function addShortCut_Org(keys, func) {
-    eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', keys).replace('fnc', func));
-    Short_Cut[keys] = func;
+	if(keys) ShortCutQue.push([keys,func]);
+	if(Mousetrap) {
+		for(var i=0; i<ShortCutQue.length; i++) {
+			var v = ShortCutQue.shift();
+	    	eval("Mousetrap.bind('keys',function(e){ fnc })".replace('keys', v[0]).replace('fnc', v[1]));
+    		Short_Cut[keys] = v[1];
+        }
+    } else
+		setTimeout(addShortCut_Org, 500);
 }
-
 function showShortCut() {
     var buf = "";
     for (var key in Short_Cut){
