@@ -246,7 +246,13 @@ function WakeupGenie() {
         }
     });
 }
-
+function clearLStorage_js(){
+	var sKey,js=[]; 
+	for(var i=0; sKey = window.localStorage.key(i); i++)
+		if(sKey.slice(-3)=='.js') js.push(sKey);
+		for(var i=js.length-1; i>=0; i--)
+			localStorage.removeItem(js[i]);
+}
 function showHideGenie() {
 	var _genie=document.getElementById('genie');
 	var _genieHome=document.getElementById('GenieHome');
