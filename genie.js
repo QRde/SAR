@@ -36,7 +36,8 @@ function speak(txt, lang, volume, rate, pitch) {
 		} else {
 			setTimeout(speak, 1000, '');
 		}
-	}
+	} else
+		speechSynthesis.cancel();
 }
 	
 function Genie() {
